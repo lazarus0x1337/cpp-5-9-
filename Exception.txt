@@ -1,0 +1,40 @@
+In C++98, you should use throw() to specify that a method does not throw exceptions.  |
+The throw() specifier is used for declaring that a function will not throw exceptions |
+The noexcept specifier is used in C++11 and later.                                    |  
+-------------------------------------------------------------------------------------->
+
+
+-----definition----- :
+            Exception : Exceptions in C++ are a mechanism for handling errors 
+                or unusual situations that occur during program execution. 
+                They provide a way to transfer control from the point of error 
+                to a handler that can deal with the situation appropriately
+
+Exceptions provide a structured way to handle runtime errors and maintain control flow
+and improving program robustness.
+
+An exception is data. Surprised? 
+Imagine an exception as a winged box, capable of flying, which comes up when something bad occurs, 
+at the time when it happens. The box contains data which may help to identify the reason for the failure. 
+The data may be of any type: it may be an int, a float, a string, an object of any class, you name it. 
+You’ll have to choose the data which will be the most useful in your situation.
+
+
+-----hierarchical structure of different exceptions----- :
+           1 - logic_error : is intended to represent exceptions connected to program logic i.e. 
+                the algorithm, its implementation, data validity and cohesion. 
+                We can say that this kind of exception is thrown at higher levels of program abstraction. 
+           
+           2 - runtime_error : is used to identify exceptions thrown due to “unexpected” accidents like a lack of memory.
+                like overflow underflow ...
+
+
+
+-----The exception class is very modest. In fact it defines only three components-----:
+            1 - constructor (not very useful to us because, as we’ve mentioned before, objects of this class aren’t created)
+            2 - virtual destructor, originally empty
+            3 - virtual function called what which returns the C-style string (a pointer to the array of characters terminated by the null (‘\0’) character)
+                prototyope --> virtual char* what()
+                The what function provides a text (more or less verbose) describing the nature and cause of the exception. 
+                You can use it to find more detailed sources of the exception.
+
