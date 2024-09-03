@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+class Form;
 class Bureaucrat
 {
     private:
@@ -8,6 +8,7 @@ class Bureaucrat
             int grade;
     public:
             Bureaucrat();
+            Bureaucrat(std::string n, int grade);
             ~Bureaucrat();
             Bureaucrat(const Bureaucrat &b);
             Bureaucrat& operator=(const Bureaucrat &b);
@@ -18,6 +19,7 @@ class Bureaucrat
             void decrementGrade();
             void validateGrade(int grade);
 
+            void signForm(Form f);
             //EXCEPTION :
             class GradeTooHighException : public std::exception{
                 public :

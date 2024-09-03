@@ -9,6 +9,11 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &b):target(b.
 {
 }
 
+ShrubberyCreationForm::ShrubberyCreationForm(std::string name, std::string target):AForm(name,145,137),target(target)
+{
+}
+
+
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm &b)
 {
     if (this != &b)

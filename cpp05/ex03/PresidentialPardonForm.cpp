@@ -9,6 +9,10 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &b):target
 {
 }
 
+PresidentialPardonForm::PresidentialPardonForm(std::string name, std::string target):AForm(name,25,5),target(target)
+{
+}
+
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm &b)
 {
     if (this != &b)

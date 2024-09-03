@@ -9,6 +9,10 @@ RobotomyRequestForm::~RobotomyRequestForm()
 {
 }
 
+RobotomyRequestForm::RobotomyRequestForm(std::string name, std::string target):AForm(name,72,45),target(target)
+{
+}
+
 RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &b):target(b.target)
 {
 }

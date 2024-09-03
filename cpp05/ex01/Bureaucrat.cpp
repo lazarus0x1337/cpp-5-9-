@@ -1,6 +1,10 @@
 #include "Bureaucrat.hpp"
-
+#include "Form.hpp"
 Bureaucrat::Bureaucrat():name("alice"),grade(150)
+{
+}
+
+Bureaucrat::Bureaucrat(std::string n, int grade):name(n),grade(grade)
 {
 }
 
@@ -37,6 +41,14 @@ void Bureaucrat::validateGrade(int grade)
     else if (grade > 150)
         throw GradeTooLowException();
 
+}
+
+void  Bureaucrat::signForm(Form f)
+{
+    if (f.getSigne())
+        std::cout << name << " signed "<<f.getName()<<std::endl;
+    else
+        std::cout << name << " couldn\'t sign "<<f.getName()<< " because the grade is too low : "<<grade<<std::endl;
 }
 
 void Bureaucrat::incrementGrade()       

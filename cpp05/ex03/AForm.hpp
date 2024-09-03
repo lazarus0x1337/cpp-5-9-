@@ -1,8 +1,7 @@
 #pragma once
 #include "Bureaucrat.hpp"
 
-
-class Form
+class AForm
 {
     private:
         const std::string name;
@@ -11,17 +10,19 @@ class Form
         const int gradeExc;
 
     public:
-        Form();
-        Form(std::string n, int gradeSign, int GradeExec);
-        ~Form();
-        Form(const Form &b);
-        Form& operator=(const Form& b);
+        AForm();
+        AForm(std::string n, int gradeSign, int GradeExec);
+        virtual ~AForm();
+        AForm(const AForm &b);
+        AForm& operator=(const AForm& b);
+        virtual void execute(Bureaucrat const & executor) const = 0 ;
 
     // getters :
-    std::string getName();
-    bool getSigne();
-    int getGradeSign();
-    int getGradeExc();
+    std::string getName() const;
+    bool getSigne() const;
+    int getGradeSign() const;
+    int getGradeExc() const;
+    
 
     void beSigned(Bureaucrat b);
 
@@ -38,5 +39,3 @@ class Form
             const char* what() const throw();
     };
 };
-
-std::ostream& operator<<(std::ostream& os, Form b);
