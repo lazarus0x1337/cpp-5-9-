@@ -1,0 +1,48 @@
+******Casting***** : They are used to convert one data type to another.
+
+in c++ we have 4 types : 
+
+upcasting is implicit in C++
+Upcasting is usually safe and implicit
+meaning you don’t have to explicitly tell the compiler to perform the cast. 
+
+downcasting can be unsafe and requires an explicit cast.
+downcasting is the process of converting a pointer or reference from a base class to a derived class.
+The reason is that not every base class object is necessarily an instance of the derived class
+---> possible : undefined behavior
+
+        1 - [static_cast] 
+            It performs compile-time type conversion .
+            Is mainly used for explicit conversions that are considered safe by the compiler. 
+            [syntax] :  static_cast <new_type> (expression);
+            is unsafe downcast
+
+            The static_cast can be used to convert between related types
+            such as numeric types or pointers in the same inheritance hierarchy (base to Derived and vice versa).
+            This kind of cast (for derive to base) is implicit
+            implicit : meaning it's generally not needed to use static_cast
+            because : every object of the derived class contains the base class part.   
+        
+        2 - [dynamic_cast]
+            operator is mainly used to perform downcasting (safe downcast)
+            In the context of downcasting, dynamic_cast performs a runtime check 
+            to determine whether a base class pointer or reference actually refers to a derived class object. 
+            If the check fails
+            -> -> dynamic_cast returns nullptr (for pointers) or throws an exception (for references).
+
+How dynamic_cast Works in Memory:
+    Base Pointer (basePtr):
+    basePtr is of type Base*, but it points to a Derived object. 
+    This is called upcasting and is always safe because a Derived object has a Base part.
+    The Base part contains a pointer to the vtable of Derived (due to virtual functions), 
+    which is used for polymorphism. This enables calling Derived::show() even though basePtr is of type Base*.
+
+
+        3 - [const_cast]
+        operator is used to modify the const or volatile qualifier of a variable.
+
+
+        4 - reinterpret_cast
+        is used to convert the pointer to any other type of pointer.
+        syntax  : reinterpret_cast <new_type> (expression);
+        
