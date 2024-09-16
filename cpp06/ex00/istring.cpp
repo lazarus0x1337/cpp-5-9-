@@ -16,6 +16,8 @@ int main(int ac, char **av) {
     std::string input = av[1];  // Example input
     try {
         // need to check for caracter alpha :  just we need string.back()=='f'
+
+        // requirement :  + or - for begine ,  just digit , and the lase one have f or digits!!
         int number = stringToInt(input);
         // same thing for float and double !!
         std::cout << "Converted number: " << number << std::endl;
