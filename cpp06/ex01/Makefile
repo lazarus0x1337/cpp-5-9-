@@ -1,4 +1,4 @@
-NAME = convert
+NAME = serializer
 SRC =   Serializer.cpp main.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++

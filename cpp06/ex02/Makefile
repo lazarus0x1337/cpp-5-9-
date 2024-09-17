@@ -1,9 +1,8 @@
-NAME = convert
-SRC =   Serializer.cpp main.cpp
+NAME = base
+SRC =   Base.cpp main.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
-
 all :$(NAME)
 
 $(NAME) : $(OBJ)

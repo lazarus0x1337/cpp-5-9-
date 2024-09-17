@@ -141,16 +141,16 @@ void handle_irrational(int type,std::string type_literal, std::string str)
     else if (type == 2)
     {
         if (type_literal[0] == 'f')
-            std::cout << (float)str[0]<<"f"<<std::endl;
+            std::cout <<std::fixed << std::setprecision(1)<< (float)str[0]<<"f"<<std::endl;
         else
-            std::cout << (double)str[0]<<"f"<<std::endl;
+            std::cout <<std::fixed << std::setprecision(1)<< (double)str[0]<<"f"<<std::endl;
     }
     else
     {
         if (type_literal[0] == 'f')
-            std::cout <<stringToFloat(str)<<"f"<<std::endl;
+            std::cout <<std::fixed << std::setprecision(1)<<stringToFloat(str)<<"f"<<std::endl;
         else
-            std::cout << stringToDouble(str)<<std::endl;
+            std::cout <<std::fixed << std::setprecision(1)<< stringToDouble(str)<<std::endl;
     }
 }
 
