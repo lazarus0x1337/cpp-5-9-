@@ -1,42 +1,59 @@
 #pragma once 
 #include <iostream>
-
+#include <ctime> 
+#include <stdlib.h>
 template <class T> class Array{
 
-            T* array;
+            T* tab;
             unsigned int len;
     public :
-            Array():array(new array[0]),len(0){}
+            Array():tab(new T[0]),len(0){}
             ~Array()
             {
-                delete[] array;
+                delete[] tab;
             }
-            array(unsigned int n):array(new array[n]),len(n){}
-            array(const array& tab)
+            Array(unsigned int n):tab(new T[n]),len(n){}
+            Array(const Array& a)
             {
-                len = tab.len;
-                array = new array[len];
+                len = a.len;
+                tab = new T[len];
                 for (unsigned int i = 0 ; i < len ;i++)
-                    array[i] = tab.array[i]; 
+                    tab[i] = a.tab[i]; 
             }
-            array& operator=(const array& tab)
+            Array& operator=(const Array& a)
             {
-                if (this != *tab)
+                if (this != *a)
                 {
-                    len = tab.len;
-                    delete[] array;
-                    array = new array[len];
+                    len = a.len;
+                    delete[] tab;
+                    tab = new T[len];
                     for (unsigned int i = 0 ; i < len ;i++)
-                        array[i] = tab.array[i]; 
+                        tab[i] = a.tab[i]; 
                 }
                 return (*this);
             }
-
-
+            
+            class OutOfRang : public std::exception{
+                public :
+                         const char* what() const throw()
+                         {
+                            return " index out of range !!";
+                         }
+            };
+            
+            T& operator[](unsigned int index)
+            {
+                if (index < 0 || index >= len)
+                    throw  OutOfRang();
+                else
+                {
+                    std::cout << "index exist !";
+                    return tab[index];
+                }
+            }
+            
             unsigned int size() const
             {
                 return len;
             }
-
-
 };

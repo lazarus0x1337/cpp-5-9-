@@ -17,12 +17,12 @@ using namespace std;
 int main() {
 
     //test 1
-    // Base* basePtr = new Base();  // Base object, not Derived!
-    // Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
-    // if (derivedPtr)
-    //     derivedPtr->show();  // Safe call, only happens if the cast was valid
-    // else
-    //     std::cout << "Invalid downcast" << std::endl;  // Safe handling
+    Base* basePtr = new derivedPtr.();  // Base object, not Derived!
+    Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
+    if (derivedPtr)
+        derivedPtr->show();  // Safe call, only happens if the cast was valid
+    else
+        std::cout << "Invalid downcast" << std::endl;  // Safe handling
 
 
 
