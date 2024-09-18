@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime> 
 #include <stdlib.h>
+
 template <class T> class Array{
 
             T* tab;
@@ -46,12 +47,10 @@ template <class T> class Array{
                 if (index < 0 || index >= len)
                     throw  OutOfRang();
                 else
-                {
-                    std::cout << "index exist !";
                     return tab[index];
-                }
             }
             
+            // need also function for const : const T& operator[](unsigned int index) const
             unsigned int size() const
             {
                 return len;
