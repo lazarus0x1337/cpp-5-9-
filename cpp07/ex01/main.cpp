@@ -8,7 +8,7 @@ int main()
     char ch[] = {'a','b','c','d','e'};
     iter(ch,5,printelement<char>);
     std::cout << "\n";
-    std::string strArray[] = {"aaaaaaa","bbbbbbbb","ccccccc","dddddddddd"};
+    std::string strArray[] = {"null","bbbbbbbb","ccccccc","dddddddddd"};
     iter(strArray,4,printelement<std::string>);
 }
 
@@ -19,7 +19,7 @@ template <class T> void printelement(T elem)
 }
 template <class T, class F> void iter(T* array,std::size_t len, F func)
 {
-    if (len == 0) 
+    if (len == 0 || array == NULL) 
         return;
     for (std::size_t i = 0; i < len ; i++)
         func(array[i]);
