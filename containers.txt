@@ -1,0 +1,9 @@
+Templated containers, iterators, algorithms ? :
+
+-> Containers are the data structures used to store objects 
+    and data according to the requirement 
+    Each container is implemented as a template class 
+    that also contains the methods to perform basic operations on it.
+
+
+
