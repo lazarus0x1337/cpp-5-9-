@@ -19,9 +19,13 @@ template <typename T> void easyfind(T& container, int value) {
 
 int main() {
     try {
-        std::vector<char> vec = {' ', '2', '3', '4', '5'};
+        std::vector<char> vec = { '2', '3', '4', '5'};
+        std::cout << "-> " << vec.size();
         easyfind(vec, 322);  // Searching for an element that doesn't exist
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;  // Output: Element not found in the container
     }
 }
+
+
+

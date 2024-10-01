@@ -7,3 +7,43 @@ Templated containers, iterators, algorithms ? :
 
 
 
+about ex01 in cpp08 :
+
+Last but not least, it would be wonderful to fill your Span using a range of iterators.
+Making thousands calls to addNumber() is so annoying. Implement a member function
+to add many numbers to your Span in one call.
+
+If you don’t have a clue, study the Containers. Some member
+functions take a range of iterators in order to add a sequence of
+elements to the container.
+
+explanation :
+In C++, the insert function is a member function available in several 
+standard containers, such as std::vector, std::list, std::deque, and std::set. 
+It allows you to add elements to a container at a specified position.
+
+template <class InputIterator>
+iterator insert(iterator pos, InputIterator first, InputIterator last);
+
+Positioning: The insert function takes an iterator pos that indicates where the new element(s) should be inserted.
+
+
+
+
+Stack in C++ STL
+Stacks are a type of container adaptors with LIFO(Last In First Out) type of working
+
+** What Does "Not Iterable" Mean?
+
+Lack of Iterators:
+Unlike other STL containers, 
+std::stack does not provide member functions that return iterators
+(such as begin() and end()). 
+Iterators are essential for iterating through the elements of a container using standard
+ loops and algorithms (like std::for_each, std::copy, etc.).
+
+Access Limitations:
+In a stack, you can only access the top element using top()
+and you can add or remove elements from the top using push() and pop().
+This design aligns with the LIFO principle but restricts how you can traverse 
+or manipulate the elements in the stack.

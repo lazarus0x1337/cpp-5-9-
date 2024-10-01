@@ -5,6 +5,10 @@
         "iosfwd": "cpp",
         "stdexcept": "cpp",
         "ctime": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "exception": "cpp",
+        "algorithm": "cpp",
+        "vector": "cpp",
+        "cstdlib": "cpp"
     }
 }

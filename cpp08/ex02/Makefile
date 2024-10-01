@@ -1,5 +1,5 @@
 NAME = ex01
-SRC =  main.cpp Span.cpp
+SRC =  main.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
