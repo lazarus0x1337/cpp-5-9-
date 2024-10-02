@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <exception>
+#include <iterator>
 
 class NotFound : public std::exception{
     public:
@@ -11,10 +12,11 @@ class NotFound : public std::exception{
     }
 };
 
-template <class T> void easyfind(T obj, int integer)
+template <class T>  typename T::iterator easyfind(T& obj, int integer)
 {
-    
-     if (std::find(obj.begin(), obj.end(), integer) == obj.end())
+    typename T::iterator it = std::find(obj.begin(), obj.end(), integer);
+     if (it == obj.end())
             throw NotFound();
     std::cout << "we found first occurence"<<std::endl;
+    return (it);
 }

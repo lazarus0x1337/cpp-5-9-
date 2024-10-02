@@ -2,7 +2,7 @@ NAME = ex00
 SRC =  main.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++
-CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
+CPPFLAGS =  -Wall -Wextra -Werror
 
 all :$(NAME)
 

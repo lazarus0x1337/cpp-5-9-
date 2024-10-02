@@ -9,6 +9,8 @@
         "exception": "cpp",
         "algorithm": "cpp",
         "vector": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "stack": "cpp",
+        "deque": "cpp"
     }
 }

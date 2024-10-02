@@ -33,6 +33,12 @@ Positioning: The insert function takes an iterator pos that indicates where the 
 Stack in C++ STL
 Stacks are a type of container adaptors with LIFO(Last In First Out) type of working
 
+Purpose of a Stack
+LIFO Principle: A stack is fundamentally designed to follow the Last-In-First-Out (LIFO) principle.
+This means that the last element added to the stack is the first one to be removed.
+This access pattern is inherently limited to the top element of the stack.
+
+
 ** What Does "Not Iterable" Mean?
 
 Lack of Iterators:
@@ -47,3 +53,25 @@ In a stack, you can only access the top element using top()
 and you can add or remove elements from the top using push() and pop().
 This design aligns with the LIFO principle but restricts how you can traverse 
 or manipulate the elements in the stack.
+
+syntax : 
+** --> template <class Type, class Container = deque<Type> > class stack;
+
+about deque :
+Double-ended queues are sequence containers with the feature of expansion and contraction on both ends. 
+They are similar to vectors, but are more efficient in case of insertion and deletion of elements.
+Unlike vectors, contiguous storage allocation may not be guaranteed. 
+Double Ended Queues are basically an implementation of the data structure double-ended queue. 
+A queue data structure ----allows insertion only at the end and deletion from the front----
+
+
+*** The c in c.begin() and c.end() is a container_type defined in the stack class:
+```
+public:
+    typedef _Container                               container_type;
+protected:
+    container_type c;
+```
+used to store the stack’s elements.
+The c member is protected, meaning it can be accessed by the class itself 
+and any derived classes (like MutantStack), but not directly by external code.
