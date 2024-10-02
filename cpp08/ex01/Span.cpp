@@ -19,7 +19,7 @@ int Span::shortestSpan() const
     shortestspan = abs(numbers[1] - numbers[0]);
     for (size_t i = 2; i < numbers.size() ;i++)
         if (abs(numbers[i] - numbers[i-1]) < shortestspan)
-            shortestspan = numbers[i] - numbers[i-1];
+            shortestspan = abs(numbers[i] - numbers[i-1]); //  need to verifier this !!
     return  shortestspan;
 }
 
