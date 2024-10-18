@@ -1,26 +1,33 @@
 #include <iostream>
 using namespace std;
-// class Base {
-// public:
-//     virtual void show() {
-//         std::cout << "Base class" << std::endl;
-//     }
-// };
+class Base {
+public:
+    void show() {
+        std::cout << "Base class" << std::endl;
+    }
+};
 
-// class Derived : public Base {
-// public:
-//     void show() override {
-//         std::cout << "Derived class" << std::endl;
-//     }
-// };
+class Derived : public Base {
+public:
+    void show1()  {
+        std::cout << "Derived class" << std::endl;
+    }
+    void hello()
+    {
+        std::cout << "ffffffffff class" << std::endl;
+    }
+};
 
 int main() {
 
     //test 1
-    Base* basePtr = new derivedPtr.();  // Base object, not Derived!
+    Base* basePtr = new Derived();  // Base object, not Derived!
     Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
     if (derivedPtr)
-        derivedPtr->show();  // Safe call, only happens if the cast was valid
+    {
+        
+        derivedPtr->show1();  // Safe call, only happens if the cast was valid
+    }
     else
         std::cout << "Invalid downcast" << std::endl;  // Safe handling
 
