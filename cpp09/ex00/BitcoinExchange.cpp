@@ -1,89 +1,87 @@
 #include "BitcoinExchange.hpp"
+
+bool isValidFloat(const std::string& str ,float& value, bool flaginput) {
+    if (str.empty())
+        return false;
+    std::istringstream iss(str);
+    iss >> value;
+    if (flaginput)
+    {
+        if(value < 0)
+        return (std::cout << "Error: not a positive number.\n",false);
+        if(value > 1000)
+        return (std::cout << "Error: too large a number.\n",false);
+        if (!(!iss.fail() && iss.eof()))
+            std::cout << "Error:  bad input.\n\""<<str<<"\"";
+    }
+    return (!iss.fail() && iss.eof());
+}
 BitcoinExchange::BitcoinExchange()
 {
-    // std::ifstream file(DATABASE);
-    // if (!file.is_open())
-    // {
-    //     std::cout << "Error opening file for writing.\n";
-    //     exit(1);
-    // }
-
+    std::string line,key,value;
+    std::ifstream file(DATABASE);
+    float result;
+    if (!file.is_open())
+    {
+        std::cout << "DATABASE NOT EXIST .\n";
+        exit(1);
+    }
+    while(std::getline(file,line))
+    {
+         std::istringstream lineStream(line);
+        if (std::getline(lineStream, key, ',') && std::getline(lineStream, value))
+            if (isValidFloat(value,result, false))
+                data[key] = result;
+    }
 }
 
 BitcoinExchange::~BitcoinExchange()
 {
-    input.clear();
+    data.clear();
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
 {
-
+        this->data = other.data;
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 {
-
+        if (this != &other)
+            this->data = other.data;
+        return *this;  
 }
 
-bool validDigits(std::string number)
+
+std::string trim(const std::string& str)
 {
-    for(size_t i=0;i<number.size();i++)
-        if(!std::isdigit(number[i]))
-            return false;
-    return true;
-}
-// bool isValidDate(const std::string& date)
-// {
-//     if (date.length() != 10 || (date[4] != '-' || date[7] != '-')) 
-//         return (std::cout << "Error: invalid date.\n",false);
-    
-//     std::string year = date.substr(0, 4);
-//     std::string month = date.substr(5, 2);
-//     std::string day = date.substr(8, 2);
-    
-//     if (!validDigits(year) || !validDigits(month) || !validDigits(day))
-//         return (std::cout << "Error: invalid date.\n",false);
-
-//     int yearNum = std::atoi(year.c_str());
-//     int monthNum = std::atoi(month.c_str());
-//     int dayNum = std::atoi(day.c_str());
-
-//     // Validate ranges for year, month, and day
-//     if (yearNum < 0) return false;          // No negative years
-//     if (monthNum < 1 || monthNum > 12) return false;
-//     if (dayNum < 1 || dayNum > 31) return false; // Simplified day check
-
-//     return true; // Passed all checks
-// }
-
-
-bool checkValue(std::string value)
-{
-    float amount = std::atof(value.c_str());
-    if(amount < 0)
-        return (std::cout << "Error: not a positive number.\n",false);
-    if(amount > 1000)
-        return (std::cout << "Error: too large a number.\n",false);
-    return true;
+    size_t start = 0;
+    while (start < str.size() && std::isspace(str[start]))
+        ++start;
+    size_t end = str.size();
+    while (end > start && std::isspace(str[end - 1]))
+        --end;
+    return str.substr(start, end - start);
 }
 
-void BitcoinExchange::readData(std::ifstream file)
+void BitcoinExchange::readData(std::ifstream& file)
 {
     std::string line,key,value;
     float amount;
     while(std::getline(file,line))
     {
-         std::istringstream lineStream(line);
+        std::istringstream lineStream(line);
         if (std::getline(lineStream, key, '|') && std::getline(lineStream, value))
         {
+            
             if(key.empty() || value.empty())
             {
                 std::cout << "Error: bad input\n";
                 continue;
             }
-            if(!checkValue(value))
+            if(!(isValidFloat(value,amount,true)))
                 continue;
-            process(key,amount);
+           process(trim(key),amount);
         }
         else
             std::cout << "invalid format !\n";
@@ -92,5 +90,19 @@ void BitcoinExchange::readData(std::ifstream file)
 
 void BitcoinExchange::process(std::string key,float amount)
 {
-    input[key] = 
+    /*
+        lower_bound(key): This function returns the first element 
+        where the key is greater than or equal to key
+    */
+    std::map<std::string, float>::iterator it = data.find(key);
+    if (it != data.end())
+        std::cout << key<<" => "<< amount << " = " << (amount * it->second)<< "\n";
+    else
+    {
+        it = data.lower_bound(key);
+        if (it != data.begin() && it != data.end())
+            std::cout << key<<" => "<< amount << " = " << (amount * std::prev(it)->second) << "\n";
+        else
+            std::cout << "Error: i cant get lower date.\n";
+    }
 }
