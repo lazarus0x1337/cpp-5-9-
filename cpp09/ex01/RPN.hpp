@@ -4,11 +4,8 @@
 #include <stack>
 
 enum State {
-    START,
-    OPERAND,
-    OPERATOR,
-    ERROR,
-    DONE
+    SUCCESS,
+    ERROR
 };
 
 class RPN
@@ -22,7 +19,8 @@ class RPN
             ~RPN();
             RPN(const RPN& a);
             RPN& operator=(const RPN& a);
-            int readExpression(char *b);
+            void readExpression(char *b);
             void calculate(char op);
+            void printResult();
 };
 

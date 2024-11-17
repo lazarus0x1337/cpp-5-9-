@@ -1,26 +1,44 @@
 #include "RPN.hpp"
 
-RPN::RPN():result(0)
+RPN::RPN():result(0),status(SUCCESS)
 {
 }
 
 RPN::~RPN()
 {
+    while (!Operands.empty())
+        Operands.pop();
 }
 
 
 RPN::RPN(const RPN& a)
 {
+    Operands = a.Operands;
 }
 
-RPN& RPN::operator=(const RPN& a)
+RPN& RPN::operator=(const RPN& other)
 {
-
+    if (this != &other)
+        Operands = other.Operands;
+    return *this;
 }
 
+void RPN::printResult()
+{
+    if (status == ERROR)
+        std::cout << "Error\n";
+    else
+        std::cout << result;
+}
 
 void RPN::calculate(char op)
 {
+    result = 0;
+    if (Operands.size() < 2)
+    {
+        status  = ERROR;
+        return;
+    }
     int operand2 = Operands.top();
     Operands.pop();
     int operand1 = Operands.top();
@@ -42,34 +60,30 @@ void RPN::calculate(char op)
         result += operand1 * operand2;
     else
         status = ERROR;
+    Operands.push(result);
+
 }
 
-int RPN::readExpression(char *b)
+void RPN::readExpression(char *b)
 {
-    status = START;
-    int number;
-    for(int i = 0; i < strlen(b) && status != ERROR; i++)
+    for(size_t i = 0; i < strlen(b) && status != ERROR; i++)
     {
-        if (status == OPERAND && !std::isspace(b[i]))
-        {
-            status = ERROR;
-            break;
-        }
         if(std::isspace(b[i]))
             continue;
-        if (status == OPERATOR)
-            calculate(b[i]);
         if (std::isdigit(b[i]))
         {
-            Operands.push(b[i] - '0');
-            if (Operands.size() > 2)
+            if( i > 0 && !std::isspace(b[i - 1]))
                 status = ERROR;
-            else if (Operands.size() == 2)
-                status = OPERATOR;
-            else
-                status = OPERAND;
+            Operands.push(b[i] - '0');
         }
+        else if (strchr("+-*/", b[i]))
+            calculate(b[i]);
         else
             status = ERROR;
     }
+
+    if (Operands.size() == 1 && status != ERROR)
+        result = Operands.top();
+    else
+        status = ERROR;
 }
