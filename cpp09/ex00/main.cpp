@@ -2,7 +2,6 @@
 
 int main(int ac, char **av)
 {
-    (void)av;
     BitcoinExchange btc;
     std::string line;
     if(ac != 2)
@@ -11,7 +10,5 @@ int main(int ac, char **av)
     if (!file.is_open())
         return (std::cout << "Error opening file for writing.\n",1);
     btc.readData(file);
-    
-
     file.close();
 }
