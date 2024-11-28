@@ -27,10 +27,49 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
     return *this;
 }
 
-template <typename Container>
-void addElement(Container& container, int value)
+template <typename container>
+double Ford_Johnson_algo(container& c)
 {
-    container.push_back(value);
+    std::clock_t start = std::clock();
+    std::vector<std::pair<int, int>> pairs;
+    container smaller;
+    container larger;
+    size_t n = c.size();
+
+    for (size_t i = 0 ; i < n/2 ; i++)
+    {
+        if (c[2*i] > c[2*i + 1])
+            pairs.push_back({c[2*i + 1], c[2*i]});
+        else
+            pairs.push_back({c[2*i], c[2*i+1]});
+    }
+    if (n % 2 != 0)
+        larger.push_back(c[n - 1]);
+
+    for (size_t i = 0; i < pairs.size(); ++i)
+    {
+        smaller.push_back(pairs[i].first);
+        smaller.push_back(pairs[i].second);
+    }
+
+    std::sort(smaller.begin(), smaller.end());
+
+    for (size_t i = 0; i < larger.size(); ++i)
+    {
+        typename container::iterator pos = std::lower_bound(smaller.begin(), smaller.end(), larger[i]);
+        smaller.insert(pos, larger[i]);
+    }
+    std::clock_t end = std::clock();
+    c.clear(); 
+    c.insert(c.end(), smaller.begin(), smaller.end());
+    return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 100000);
+}
+
+
+void PmergeMe::addElement(int value)
+{
+    array1.push_back(value);
+    array2.push_back(value);
 }
 
 void PmergeMe::Parse_Save(char* list)
@@ -44,8 +83,7 @@ void PmergeMe::Parse_Save(char* list)
         {
             if(inNumber)
             {
-                addElement(array1,number);
-                addElement(array2,number);
+                addElement(number);
                 inNumber = false;
                 number = 0;
             }
@@ -58,23 +96,27 @@ void PmergeMe::Parse_Save(char* list)
             number = number * 10 + digit;
             inNumber = true;
             if(*(p+1) == '\0')
-            {
-                addElement(array1,number);
-                addElement(array2,number);
-            }
+                addElement(number);
         }
         else
             throw std::invalid_argument("[Error] Invalid character in input !");
     }
 }
 
-void PmergeMe::printArrays()
+void PmergeMe::printArrays(std::string txt)
 {
-// {   std::cout << "\n vector: \n";
-//     for(size_t i = 0; i < array1.size(); i++)
-//         std::cout<<array1[i]<< " ";
-    // std::cout << "\n deque: \n";
+    std::cout << txt;
     for(size_t i = 0; i < array2.size(); i++)
-        std::cout<<array2[i]<< " ";
+        std::cout<<array1[i]<< " ";
+    std::cout << std::endl;
 }
 
+
+void PmergeMe::sort()
+{
+    double elapsed_time_vector = Ford_Johnson_algo(array1);
+    printArrays("after: ");
+    double elapsed_time_deque = Ford_Johnson_algo(array2);
+    std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::vector  : "<< std::fixed << std::setprecision(5) << elapsed_time_vector << " us" << std::endl;
+    std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::deque  : "<< std::fixed << std::setprecision(5) << elapsed_time_deque << " us" << std::endl;
+}

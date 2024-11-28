@@ -7,10 +7,10 @@ int main(int ac, char**av)
     try{
         int i = 0;
         PmergeMe merge;
-        std::cout <<"Before: ";
         while (++i < ac)
             merge.Parse_Save(av[i]);
-        merge.printArrays();
+        merge.printArrays("Before: ");
+        merge.sort();
     }catch(std::exception &e)
     {
         std::cout<< e.what()<<std::endl;
