@@ -62,7 +62,7 @@ double Ford_Johnson_algo(container& c)
     std::clock_t end = std::clock();
     c.clear(); 
     c.insert(c.end(), smaller.begin(), smaller.end());
-    return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 100000);
+    return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000000);
 }
 
 
@@ -118,5 +118,5 @@ void PmergeMe::sort()
     printArrays("after: ");
     double elapsed_time_deque = Ford_Johnson_algo(array2);
     std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::vector  : "<< std::fixed << std::setprecision(5) << elapsed_time_vector << " us" << std::endl;
-    std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::deque  : "<< std::fixed << std::setprecision(5) << elapsed_time_deque << " us" << std::endl;
+    std::cout << "Time taken to process a range of "<<array1.size()<<" elements with std::deque  : "<< std::fixed << std::setprecision(5) << elapsed_time_deque << " us" << std::endl;
 }

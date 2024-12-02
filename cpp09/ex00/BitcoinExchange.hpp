@@ -8,15 +8,15 @@
 #define DATABASE "data.csv"
 class BitcoinExchange
 {
-private:
-        std::map<std::string, float> data;
-public:
-        BitcoinExchange();
-        BitcoinExchange(const BitcoinExchange& other);
-        BitcoinExchange& operator=(const BitcoinExchange& other);
-        ~BitcoinExchange();
-        void readData(std::ifstream& file);
-        void process(std::string key,float amount);
+        private:
+                std::map<std::string, float> data;
+        public:
+                BitcoinExchange();
+                BitcoinExchange(const BitcoinExchange& other);
+                BitcoinExchange& operator=(const BitcoinExchange& other);
+                ~BitcoinExchange();
+                void readData(std::ifstream& file);
+                void process(std::string key,float amount);
 };
 
 

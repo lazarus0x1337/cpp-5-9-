@@ -16,6 +16,7 @@ bool isValidFloat(const std::string& str ,float& value, bool flaginput) {
     }
     return (!iss.fail() && iss.eof());
 }
+
 BitcoinExchange::BitcoinExchange()
 {
     std::string line,key,value;
@@ -64,6 +65,30 @@ std::string trim(const std::string& str)
     return str.substr(start, end - start);
 }
 
+bool  isValidDate(std::string key)
+{
+    if (!isdigit(key[0]) || !isdigit(key[1]) || !isdigit(key[2]) || !isdigit(key[3]) ||
+        key[4] != '-' || !isdigit(key[5]) || !isdigit(key[6]) || key[7] != '-' ||
+        !isdigit(key[8]) || !isdigit(key[9]))
+    {
+        std::cout << "Error: Invalid Date !"<<std::endl;
+        return false;
+    }
+    int month = std::stoi(key.substr(5, 2));
+    int day = std::stoi(key.substr(8, 2));
+    if (month < 1 || month > 12)
+    {
+        std::cout << "Error: Invalid month !"<<std::endl;
+        return false;
+    }
+    const int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (day < 1 || day > daysInMonth[month - 1])
+    {
+        std::cout << "Error: Invalid day !"<<std::endl;
+        return false;
+    }
+    return true;
+}
 void BitcoinExchange::readData(std::ifstream& file)
 {
     std::string line,key,value;
@@ -79,12 +104,12 @@ void BitcoinExchange::readData(std::ifstream& file)
                 std::cout << "Error: bad input\n";
                 continue;
             }
-            if(!(isValidFloat(value,amount,true)))
+            if(!(isValidFloat(value,amount,true)) ||  !isValidDate(key))
                 continue;
            process(trim(key),amount);
         }
         else
-            std::cout << "invalid format !\n";
+            std::cout << "Error:invalid format !\n";
     }
 }
 
@@ -101,7 +126,7 @@ void BitcoinExchange::process(std::string key,float amount)
     {
         it = data.lower_bound(key);
         if (it != data.begin() && it != data.end())
-            std::cout << key<<" => "<< amount << " = " << (amount * std::prev(it)->second) << "\n";
+            std::cout << key<<" => "<< amount <<" = " << (amount * std::prev(it)->second) << "\n";
         else
             std::cout << "Error: i cant get lower date.\n";
     }
