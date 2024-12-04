@@ -28,42 +28,42 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
 }
 
 template <typename container>
-double Ford_Johnson_algo(container& c)
+void binaryInsert(container& sorted, int value)
 {
-    std::clock_t start = std::clock();
-    std::vector<std::pair<int, int>> pairs;
-    container smaller;
-    container larger;
-    size_t n = c.size();
-
-    for (size_t i = 0 ; i < n/2 ; i++)
-    {
-        if (c[2*i] > c[2*i + 1])
-            pairs.push_back({c[2*i + 1], c[2*i]});
-        else
-            pairs.push_back({c[2*i], c[2*i+1]});
-    }
-    if (n % 2 != 0)
-        larger.push_back(c[n - 1]);
-
-    for (size_t i = 0; i < pairs.size(); ++i)
-    {
-        smaller.push_back(pairs[i].first);
-        smaller.push_back(pairs[i].second);
-    }
-
-    std::sort(smaller.begin(), smaller.end());
-
-    for (size_t i = 0; i < larger.size(); ++i)
-    {
-        typename container::iterator pos = std::lower_bound(smaller.begin(), smaller.end(), larger[i]);
-        smaller.insert(pos, larger[i]);
-    }
-    std::clock_t end = std::clock();
-    c.clear(); 
-    c.insert(c.end(), smaller.begin(), smaller.end());
-    return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000000);
+    typename container::iterator pos = std::lower_bound(sorted.begin(), sorted.end(), value);
+    sorted.insert(pos, value);
 }
+
+template <typename container>
+void Ford_Johnson_algo(container& c)
+{
+    size_t n = c.size();
+    if (n <= 1)
+        return ; 
+    container smaller, larger;
+    for (size_t i = 0; i < n / 2; i++)
+    {
+        int a = c[2 * i];
+        int b = c[2 * i + 1];
+        if (a < b) {
+            smaller.push_back(a);
+            larger.push_back(b);
+        } else {
+            smaller.push_back(b);
+            larger.push_back(a);
+        }
+    }
+    if (n % 2 == 1)
+        larger.push_back(c.back());
+    Ford_Johnson_algo(larger);
+    container S =  larger;
+    binaryInsert(S, smaller[0]);
+    for (size_t i = 1; i < smaller.size(); ++i)
+        binaryInsert(S, smaller[i]);
+    c.clear();
+    c.insert(c.end(), S.begin(), S.end());
+}
+
 
 
 void PmergeMe::addElement(int value)
@@ -114,9 +114,13 @@ void PmergeMe::printArrays(std::string txt)
 
 void PmergeMe::sort()
 {
-    double elapsed_time_vector = Ford_Johnson_algo(array1);
+    // std::clock_t start = std::clock();
+    // std::clock_t end = std::clock();
+    // return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000000);
+    //double elapsed_time_vector = 
+    Ford_Johnson_algo(array1);
     printArrays("after: ");
-    double elapsed_time_deque = Ford_Johnson_algo(array2);
-    std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::vector  : "<< std::fixed << std::setprecision(5) << elapsed_time_vector << " us" << std::endl;
-    std::cout << "Time taken to process a range of "<<array1.size()<<" elements with std::deque  : "<< std::fixed << std::setprecision(5) << elapsed_time_deque << " us" << std::endl;
+    // double elapsed_time_deque = Ford_Johnson_algo(array2);
+    // std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::vector  : "<< std::fixed << std::setprecision(5) << elapsed_time_vector << " us" << std::endl;
+    // std::cout << "Time taken to process a range of "<<array1.size()<<" elements with std::deque  : "<< std::fixed << std::setprecision(5) << elapsed_time_deque << " us" << std::endl;
 }

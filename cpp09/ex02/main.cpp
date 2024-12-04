@@ -4,7 +4,8 @@ int main(int ac, char**av)
 {
     if(ac < 2)
         return (1);
-    try{
+    try
+    {
         int i = 0;
         PmergeMe merge;
         while (++i < ac)

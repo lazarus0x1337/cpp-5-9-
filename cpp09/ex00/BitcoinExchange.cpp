@@ -67,25 +67,30 @@ std::string trim(const std::string& str)
 
 bool  isValidDate(std::string key)
 {
-    if (!isdigit(key[0]) || !isdigit(key[1]) || !isdigit(key[2]) || !isdigit(key[3]) ||
-        key[4] != '-' || !isdigit(key[5]) || !isdigit(key[6]) || key[7] != '-' ||
-        !isdigit(key[8]) || !isdigit(key[9]))
+    try{
+        if (!isdigit(key[0]) || !isdigit(key[1]) || !isdigit(key[2]) || !isdigit(key[3]) ||
+            key[4] != '-' || !isdigit(key[5]) || !isdigit(key[6]) || key[7] != '-' ||
+            !isdigit(key[8]) || !isdigit(key[9]))
+        {
+            std::cout << "Error: Invalid Date !"<<std::endl;
+            return false;
+        }
+        int month = std::stoi(key.substr(5, 2));
+        int day = std::stoi(key.substr(8, 2));
+        if (month < 1 || month > 12)
+        {
+            std::cout << "Error: Invalid month !"<<std::endl;
+            return false;
+        }
+        const int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (day < 1 || day > daysInMonth[month - 1])
+        {
+            std::cout << "Error: Invalid day !"<<std::endl;
+            return false;
+        }
+    }catch(std::exception &e)
     {
-        std::cout << "Error: Invalid Date !"<<std::endl;
-        return false;
-    }
-    int month = std::stoi(key.substr(5, 2));
-    int day = std::stoi(key.substr(8, 2));
-    if (month < 1 || month > 12)
-    {
-        std::cout << "Error: Invalid month !"<<std::endl;
-        return false;
-    }
-    const int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if (day < 1 || day > daysInMonth[month - 1])
-    {
-        std::cout << "Error: Invalid day !"<<std::endl;
-        return false;
+        std::cout << e.what()<<std::endl;
     }
     return true;
 }
