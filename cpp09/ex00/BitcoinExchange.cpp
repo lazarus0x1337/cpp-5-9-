@@ -12,7 +12,7 @@ bool isValidFloat(const std::string& str ,float& value, bool flaginput) {
         if(value > 1000)
         return (std::cout << "Error: too large a number.\n",false);
         if (!(!iss.fail() && iss.eof()))
-            std::cout << "Error:  bad input.\n\""<<str<<"\"";
+            std::cout << "Error:  bad input. \n";
     }
     return (!iss.fail() && iss.eof());
 }

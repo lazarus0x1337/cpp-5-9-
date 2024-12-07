@@ -114,13 +114,15 @@ void PmergeMe::printArrays(std::string txt)
 
 void PmergeMe::sort()
 {
-    // std::clock_t start = std::clock();
-    // std::clock_t end = std::clock();
-    // return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000000);
-    //double elapsed_time_vector = 
+    std::clock_t start = std::clock();
     Ford_Johnson_algo(array1);
     printArrays("after: ");
-    // double elapsed_time_deque = Ford_Johnson_algo(array2);
-    // std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::vector  : "<< std::fixed << std::setprecision(5) << elapsed_time_vector << " us" << std::endl;
-    // std::cout << "Time taken to process a range of "<<array1.size()<<" elements with std::deque  : "<< std::fixed << std::setprecision(5) << elapsed_time_deque << " us" << std::endl;
+    std::clock_t end = std::clock();
+    double time1 = (static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000000;
+    std::clock_t start1 = std::clock();
+    Ford_Johnson_algo(array2);
+    std::clock_t end1 = std::clock();
+    double time2 = (static_cast<double>(end1 - start1) / CLOCKS_PER_SEC) * 1000000;
+    std::cout << "\nTime taken to process a range of "<<array1.size()<<" elements with std::vector  : " << time1 << " us" << std::endl;
+    std::cout << "Time taken to process a range of "<<array1.size()<<" elements with std::deque  : " << time2 << " us" << std::endl;
 }
